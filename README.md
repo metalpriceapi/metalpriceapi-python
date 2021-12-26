@@ -1,6 +1,6 @@
 # metalpriceapi
 
-metalpriceapi is the official Python wrapper for MetalpriceAPI. This allows you to quickly integrate our API into your application. Check https://metalpriceapi.com documentation for more information.
+metalpriceapi is the official Python wrapper for MetalpriceAPI.com. This allows you to quickly integrate our metal price API and foreign exchange rate API into your application. Check https://metalpriceapi.com documentation for more information.
 
 ## Installation
 
