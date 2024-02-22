@@ -47,7 +47,7 @@ client.fetchLive(base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
 - `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
 
 ```python
-client.fetchHistorical(date='2021-04-05', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
+client.fetchHistorical(date='2024-02-05', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_historical)
@@ -61,7 +61,7 @@ client.fetchHistorical(date='2021-04-05', base='USD', currencies=['XAU', 'XAG', 
 - `date` <[string]> Optional. Specify date to use historical midpoint value for conversion with format `YYYY-MM-DD`. Otherwise, it will use live exchange rate date if value not passed in.
 
 ```python
-client.convert(from_currency='USD', to_currency='EUR', amount=100, date='2021-04-05')
+client.convert(from_currency='USD', to_currency='EUR', amount=100, date='2024-02-05')
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_convert)
@@ -75,7 +75,7 @@ client.convert(from_currency='USD', to_currency='EUR', amount=100, date='2021-04
 - `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
 
 ```python
-client.timeframe(start_date='2021-04-05', end_date='2021-04-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
+client.timeframe(start_date='2024-02-05', end_date='2024-02-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_timeframe)
@@ -89,10 +89,22 @@ client.timeframe(start_date='2021-04-05', end_date='2021-04-06', base='USD', cur
 - `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
 
 ```python
-client.change(start_date='2021-04-05', end_date='2021-04-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
+client.change(start_date='2024-02-05', end_date='2024-02-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_change)
+
+---
+#### carat(base, date)
+
+- `base` <[string]> Optional. Pass in a base currency, defaults to USD.
+- `date` <[string]> Optional. Specify date to get Carat for specific date using format `YYYY-MM-DD`. If not specified, uses live rates.
+
+```python
+client.carat(base='USD', date='2024-02-05')
+```
+
+[Link](https://metalpriceapi.com/documentation#api_carat)
 
 ---
 **[Official documentation](https://metalpriceapi.com/documentation)**

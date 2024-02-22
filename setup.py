@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="metalpriceapi",
-    version="1.0.3",
+    version="1.0.4",
     url="https://github.com/metalpriceapi/metalpriceapi-python",
 
     author="MetalpriceAPI",
@@ -14,6 +14,6 @@ setuptools.setup(
 
     packages=setuptools.find_packages(),
 
-    install_requires=['requests>=2.9.1'],
+    install_requires=['requests>=2.31.0'],
     keywords=['currency', 'metal price', 'exchangerate', 'rates'],
 )

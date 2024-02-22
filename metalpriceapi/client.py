@@ -59,3 +59,11 @@ class Client(object):
         })
         response = self.client.get(f'{self.base_url}/change', params=params)
         return response.json()
+
+    def carat(self, base='', date = ''):
+        params = self._removeEmpty({
+            'base': base,
+            'date': date,
+        })
+        response = self.client.get(f'{self.base_url}/carat', params=params)
+        return response.json()
