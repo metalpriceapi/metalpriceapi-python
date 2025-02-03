@@ -30,6 +30,17 @@ class Client(object):
         response = self.client.get(f'{self.base_url}/{date}', params=params)
         return response.json()
 
+    def fetchOHLC(self, base='', currency='', date='', unit='', dateType=''):
+        params = self._removeEmpty({
+            'base': base,
+            'currency': currency,
+            'date': date,
+            'unit': unit,
+            'dateType': dateType
+        })
+        response = self.client.get(f'{self.base_url}/ohlc', params=params)
+        return response.json()
+
     def convert(self, to_currency, amount, from_currency='', date=''):
         params = self._removeEmpty({
             'from': from_currency,
@@ -66,4 +77,8 @@ class Client(object):
             'date': date,
         })
         response = self.client.get(f'{self.base_url}/carat', params=params)
+        return response.json()
+
+    def usage(self):
+        response = self.client.get(f'{self.base_url}/usage')
         return response.json()
