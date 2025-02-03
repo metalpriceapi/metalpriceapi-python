@@ -30,13 +30,13 @@ class Client(object):
         response = self.client.get(f'{self.base_url}/{date}', params=params)
         return response.json()
 
-    def fetchOHLC(self, base='', currency='', date='', unit='', dateType=''):
+    def fetchOHLC(self, base='', currency='', date='', unit='', date_type=''):
         params = self._removeEmpty({
             'base': base,
             'currency': currency,
             'date': date,
             'unit': unit,
-            'dateType': dateType
+            'date_type': date_type
         })
         response = self.client.get(f'{self.base_url}/ohlc', params=params)
         return response.json()

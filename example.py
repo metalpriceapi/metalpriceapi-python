@@ -12,7 +12,7 @@ print(result)
 result = client.fetchHistorical(date='2024-02-05', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
 print(result)
 
-result = client.fetchOHLC(base='USD', currency='XAU', date='2024-02-06', unit='troy_oz', dateType=None)
+result = client.fetchOHLC(base='USD', currency='XAU', date='2024-02-06', unit='troy_oz', date_type=None)
 print(result)
 
 result = client.convert(from_currency='USD', to_currency='EUR', amount=100, date='2024-02-05')

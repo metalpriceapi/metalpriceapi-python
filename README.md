@@ -59,10 +59,10 @@ client.fetchHistorical(date='2024-02-05', base='USD', currencies=['XAU', 'XAG', 
 - `currency` <[string]> Required. Specify currency you would like to get OHLC for.
 - `date` <[string]> Required. Specify date to get OHLC for specific date using format `YYYY-MM-DD`.
 - `unit` <[string]> Optional. Pass in a unit, defaults to troy_oz.
-- `dateType` <[string]> Optional. Pass in a date type, overrides date parameter if passed in.
+- `date_type` <[string]> Optional. Pass in a date type, overrides date parameter if passed in.
 
 ```python
-client.fetchOHLC(base='USD', currency='XAU', date='2024-02-05', unit='troy_oz', dateType=None)
+client.fetchOHLC(base='USD', currency='XAU', date='2024-02-05', unit='troy_oz', date_type=None)
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_ohlc)
