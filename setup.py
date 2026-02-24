@@ -2,10 +2,10 @@ import setuptools
 
 setuptools.setup(
     name="metalpriceapi",
-    version="1.1.2",
+    version="1.3.0",
     url="https://github.com/metalpriceapi/metalpriceapi-python",
 
-    license_files=('LICENSE'),
+    license_files=('LICENSE',),
 
     author="MetalpriceAPI",
     author_email="contact@metalpriceapi.com",

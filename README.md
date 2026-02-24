@@ -16,7 +16,30 @@ from metalpriceapi.client import Client
 
 api_key = 'SET_YOUR_API_KEY_HERE'
 client = Client(api_key)
+
+# Or use EU server:
+# client = Client(api_key, server='eu')
 ```
+---
+## Server Regions
+
+MetalpriceAPI provides two regional endpoints. Choose the one closest to your servers for optimal performance.
+
+| Region | Base URL |
+|--------|----------|
+| United States (default) | `https://api.metalpriceapi.com/v1` |
+| Europe | `https://api-eu.metalpriceapi.com/v1` |
+
+```python
+from metalpriceapi.client import Client
+
+# Default (US)
+client = Client('SET_YOUR_API_KEY_HERE')
+
+# Europe
+client = Client('SET_YOUR_API_KEY_HERE', server='eu')
+```
+
 ---
 ## Documentation
 
@@ -28,32 +51,62 @@ client.fetchSymbols()
 [Link](https://metalpriceapi.com/documentation#api_symbol)
 
 ---
-#### fetchLive(base, currencies)
+#### setServer(server)
 
-- `base` <[string]> Optional. Pass in a base currency, defaults to USD.
-- `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
+- `server` <[string]> Pass `'eu'` to use the EU server (`api-eu.metalpriceapi.com`), or `'us'` for the US server. Defaults to US if not specified.
 
 ```python
-client.fetchLive(base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
+client.setServer('eu')
+```
+
+---
+#### fetchLive(base, currencies, unit, purity, math)
+
+- `base` <[string]> Optional. Pass in a base currency, defaults to USD.
+- `currencies` <[List]<[string]>> Optional. Pass in a list of currencies to return values for.
+- `unit` <[string]> Optional. Pass in a unit for metal prices (e.g. `troy_oz`, `gram`, `kilogram`).
+- `purity` <[string]> Optional. Pass in a purity level for metal prices.
+- `math` <[string]> Optional. Pass in a math expression to apply to the rates.
+
+```python
+client.fetchLive(base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'], unit='troy_oz')
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_realtime)
 
 ---
-#### fetchHistorical(date, base, currencies)
+#### fetchHistorical(date, base, currencies, unit)
 
 - `date` <[string]> Required. Pass in a string with format `YYYY-MM-DD`
 - `base` <[string]> Optional. Pass in a base currency, defaults to USD.
-- `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
+- `currencies` <[List]<[string]>> Optional. Pass in a list of currencies to return values for.
+- `unit` <[string]> Optional. Pass in a unit for metal prices (e.g. `troy_oz`, `gram`, `kilogram`).
 
 ```python
-client.fetchHistorical(date='2024-02-05', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
+client.fetchHistorical(date='2024-02-05', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'], unit='troy_oz')
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_historical)
 
 ---
-#### fetchOHLC(base, currency, date, unit, dateType)
+#### hourly(base, currency, unit, start_date, end_date, math, date_type)
+
+- `base` <[string]> Optional. Pass in a base currency, defaults to USD.
+- `currency` <[string]> Required. Specify currency you would like to get hourly rates for.
+- `unit` <[string]> Optional. Pass in a unit for metal prices (e.g. `troy_oz`, `gram`, `kilogram`).
+- `start_date` <[string]> Required. Specify the start date using the format `YYYY-MM-DD`.
+- `end_date` <[string]> Required. Specify the end date using the format `YYYY-MM-DD`.
+- `math` <[string]> Optional. Pass in a math expression to apply to the rates.
+- `date_type` <[string]> Optional. Pass in a date type, overrides date parameters if passed in.
+
+```python
+client.hourly(base='USD', currency='XAU', unit='troy_oz', start_date='2025-11-03', end_date='2025-11-03')
+```
+
+[Link](https://metalpriceapi.com/documentation#api_hourly)
+
+---
+#### fetchOHLC(base, currency, date, unit, date_type)
 
 - `base` <[string]> Optional. Pass in a base currency, defaults to USD.
 - `currency` <[string]> Required. Specify currency you would like to get OHLC for.
@@ -62,18 +115,19 @@ client.fetchHistorical(date='2024-02-05', base='USD', currencies=['XAU', 'XAG', 
 - `date_type` <[string]> Optional. Pass in a date type, overrides date parameter if passed in.
 
 ```python
-client.fetchOHLC(base='USD', currency='XAU', date='2024-02-05', unit='troy_oz', date_type=None)
+client.fetchOHLC(base='USD', currency='XAU', date='2024-02-05', unit='troy_oz')
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_ohlc)
 
 ---
-#### convert(from_currency, to_currency, amount, date)
+#### convert(from_currency, to_currency, amount, date, unit)
 
 - `from_currency` <[string]> Optional. Pass in a base currency, defaults to USD.
 - `to_currency` <[string]> Required. Specify currency you would like to convert to.
 - `amount` <[number]> Required. The amount to convert.
 - `date` <[string]> Optional. Specify date to use historical midpoint value for conversion with format `YYYY-MM-DD`. Otherwise, it will use live exchange rate date if value not passed in.
+- `unit` <[string]> Optional. Pass in a unit for metal prices (e.g. `troy_oz`, `gram`, `kilogram`).
 
 ```python
 client.convert(from_currency='USD', to_currency='EUR', amount=100, date='2024-02-05')
@@ -82,26 +136,28 @@ client.convert(from_currency='USD', to_currency='EUR', amount=100, date='2024-02
 [Link](https://metalpriceapi.com/documentation#api_convert)
 
 ---
-#### timeframe(start_date, end_date, base, currencies)
+#### timeframe(start_date, end_date, base, currencies, unit)
 
 - `start_date` <[string]> Required. Specify the start date of your timeframe using the format `YYYY-MM-DD`.
 - `end_date` <[string]> Required. Specify the end date of your timeframe using the format `YYYY-MM-DD`.
 - `base` <[string]> Optional. Pass in a base currency, defaults to USD.
-- `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
+- `currencies` <[List]<[string]>> Optional. Pass in a list of currencies to return values for.
+- `unit` <[string]> Optional. Pass in a unit for metal prices (e.g. `troy_oz`, `gram`, `kilogram`).
 
 ```python
-client.timeframe(start_date='2024-02-05', end_date='2024-02-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
+client.timeframe(start_date='2024-02-05', end_date='2024-02-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'], unit='troy_oz')
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_timeframe)
 
 ---
-#### change(start_date, end_date, base, currencies)
+#### change(start_date, end_date, base, currencies, date_type)
 
 - `start_date` <[string]> Required. Specify the start date of your timeframe using the format `YYYY-MM-DD`.
 - `end_date` <[string]> Required. Specify the end date of your timeframe using the format `YYYY-MM-DD`.
 - `base` <[string]> Optional. Pass in a base currency, defaults to USD.
-- `currencies` <[List]<[string]>> Optional. Pass in an list of currencies to return values for.
+- `currencies` <[List]<[string]>> Optional. Pass in a list of currencies to return values for.
+- `date_type` <[string]> Optional. Pass in a date type, overrides date parameters if passed in.
 
 ```python
 client.change(start_date='2024-02-05', end_date='2024-02-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
@@ -110,13 +166,14 @@ client.change(start_date='2024-02-05', end_date='2024-02-06', base='USD', curren
 [Link](https://metalpriceapi.com/documentation#api_change)
 
 ---
-#### carat(base, date)
+#### carat(base, currency, date)
 
 - `base` <[string]> Optional. Pass in a base currency, defaults to USD.
+- `currency` <[string]> Optional. Pass in a metal code to get carat prices for (defaults to XAU).
 - `date` <[string]> Optional. Specify date to get Carat for specific date using format `YYYY-MM-DD`. If not specified, uses live rates.
 
 ```python
-client.carat(base='USD', date='2024-02-05')
+client.carat(base='USD', currency='XAU', date='2024-02-05')
 ```
 
 [Link](https://metalpriceapi.com/documentation#api_carat)

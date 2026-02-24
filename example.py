@@ -3,28 +3,34 @@ from metalpriceapi.client import Client
 api_key = 'REPLACE_ME'
 client = Client(api_key)
 
+# Or use EU server:
+# client = Client(api_key, server='eu')
+
 result = client.fetchSymbols()
 print(result)
 
-result = client.fetchLive(base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
+result = client.fetchLive(base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'], unit='troy_oz')
 print(result)
 
-result = client.fetchHistorical(date='2024-02-05', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
+result = client.fetchHistorical(date='2024-02-05', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'], unit='troy_oz')
 print(result)
 
-result = client.fetchOHLC(base='USD', currency='XAU', date='2024-02-06', unit='troy_oz', date_type=None)
+result = client.hourly(base='USD', currency='XAU', unit='troy_oz', start_date='2025-11-03', end_date='2025-11-03')
+print(result)
+
+result = client.fetchOHLC(base='USD', currency='XAU', date='2024-02-06', unit='troy_oz')
 print(result)
 
 result = client.convert(from_currency='USD', to_currency='EUR', amount=100, date='2024-02-05')
 print(result)
 
-result = client.timeframe(start_date='2024-02-05', end_date='2024-02-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
+result = client.timeframe(start_date='2024-02-05', end_date='2024-02-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'], unit='troy_oz')
 print(result)
 
 result = client.change(start_date='2024-02-05', end_date='2024-02-06', base='USD', currencies=['XAU', 'XAG', 'XPD', 'XPT'])
 print(result)
 
-result = client.carat(base='USD', date='2024-02-06')
+result = client.carat(base='USD', currency='XAU', date='2024-02-06')
 print(result)
 
 result = client.usage()
